@@ -1,8 +1,6 @@
-import {
-  Document, Model, Schema, model
-} from 'mongoose';
+import mongoose, { Document, Model, Schema, model, Types } from 'mongoose';
 import { hashSync, genSaltSync, compareSync } from 'bcrypt';
-
+import Company, { ICompany } from './Company';
 export interface IUser extends Document {
   /** Email */
   email: string;
@@ -12,6 +10,8 @@ export interface IUser extends Document {
   firstName: string;
   /** Password */
   lastName: string;
+
+  company: Types.ObjectId | ICompany;
   /** Created On */
   createdOn: Date;
   /** Created On */
@@ -20,28 +20,35 @@ export interface IUser extends Document {
   validPassword: (password: string) => boolean;
 }
 
-interface IUserModel extends Model<IUser> { }
+interface IUserModel extends Model<IUser> {}
 
-const schema = new Schema({
+export const UserSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
+  company:{
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    ref: Company.modelName
+  },
   createdOn: {
     required: true,
-    type: Date
+    type: Date,
   },
   updatedOn: {
     required: true,
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-schema.methods.encryptPassword = (password: string) => hashSync(password, genSaltSync(10));
+UserSchema.methods.encryptPassword = function (password: string) {
+  return hashSync(password, genSaltSync(10));
+};
 
-schema.methods.validPassword = function (password: string) {
+UserSchema.methods.validPassword = function (password: string) {
   return compareSync(password, this.password);
 };
 
-export const User: IUserModel = model<IUser, IUserModel>('User', schema);
+export default mongoose.model<IUser>('User', UserSchema);

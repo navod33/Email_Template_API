@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import Joi from '@hapi/joi';
 import { relogRequestHandler } from '../../middleware/request-middleware';
-import { Event } from '../../models/Event';
+import Event from '../../models/Event';
 
 // Define Joi schema for validating request parameters
 const getEventByIdSchema = Joi.object().keys({
