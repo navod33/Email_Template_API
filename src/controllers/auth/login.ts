@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
 import { relogRequestHandler } from '../../middleware/request-middleware';
-import { User } from '../../models/User';
+import  User  from '../../models/User';
 
 const loginWrapper: RequestHandler = async (req, res) => {
   const { email = undefined, password = undefined } = req.body;
