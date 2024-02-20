@@ -3,7 +3,7 @@ import User, { IUser } from './User';
   
   export interface ICompany extends Document {
     name: string;
-    // user: Types.ObjectId | IUser;
+    logo:string;
   }
   
   const CompanySchema = new Schema({
@@ -11,11 +11,10 @@ import User, { IUser } from './User';
         type: mongoose.Schema.Types.String,
         required: true
     },
-    // user: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: User.modelName
-    // },
+    logo: {
+      type: mongoose.Schema.Types.String,
+      required: true
+  },
 
   });
 
