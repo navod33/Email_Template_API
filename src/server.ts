@@ -29,7 +29,7 @@ if (process.env.MONGO_URL == null) {
     level: 'error',
     message: 'MONGO_URL not specified in environment'
   });
-  process.exit(1);
+  process.exit(1); 
 } else {
   mongoConnection.connect(() => {
     app.listen(app.get('port'), (): void => {
