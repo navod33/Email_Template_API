@@ -3,8 +3,8 @@ import controller from '../controllers/CompanyController'; // Corrected the impo
 
 const router = express.Router();
 
-router.post('company/create', controller.addCompany);
-router.get('company/:company_id', controller.editCompany);
+router.post('/company/create', controller.addCompany);
+router.get('/company/:company_id', controller.editCompany);
 
 export = router;
 

@@ -30,24 +30,31 @@ export const addCompany: RequestHandler = async (req, res, next) => {
 export const editCompany: RequestHandler = async (req, res) => {
     const companyId = req.params.id;
     try {
-    const {name, logo } = req.body;
-    
-    const company = await Company.findById(companyId);
+        const { name, logo } = req.body;
+        
+        const company = await Company.findById(companyId);
 
-    if(!company){
-        return res.status(404).json({ message: 'Company not found' });
-    }
-    if(name){
-        company.name = name;
-    }
-    if(logo){
-        company.logo = logo;
-    }
+        if (!company) {
+            return res.status(404).json({ message: 'Company not found' });
+        }
 
+        if (name) {
+            company.name = name;
+        }
+
+        if (logo) {
+            company.logo = logo;
+        }
+
+        // Save the updated company
+        const updatedCompany = await company.save();
+
+        res.status(200).json(updatedCompany);
     } catch (error) {
-        console.error('Error fetching event by ID:', error);
+        console.error('Error updating company by ID:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
 
 export default { addCompany, editCompany };
