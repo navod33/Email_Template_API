@@ -25,5 +25,3 @@ export function ResponseHandler(req: Request, res: CustomResponse, next: NextFun
   next();
 }
 
-
-export default ResponseHandler;

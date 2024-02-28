@@ -45,8 +45,7 @@ export const editCompany: RequestHandler = async (req, res) => {
         if (logo) {
             company.logo = logo;
         }
-
-        // Save the updated company
+        
         const updatedCompany = await company.save();
 
         res.status(200).json(updatedCompany);
@@ -55,6 +54,3 @@ export const editCompany: RequestHandler = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-
-
-export default { addCompany, editCompany };

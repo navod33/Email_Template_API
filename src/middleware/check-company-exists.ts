@@ -7,7 +7,7 @@ declare module 'express' {
     }
 }
 
-const checkCompanyExists = async (req: Request, res: Response, next: NextFunction) => {
+export async function  checkCompanyExists(req: Request, res: Response, next: NextFunction) {
     const companyId = req.params.id;
     try {
         const company = await Company.findById(companyId);
@@ -20,9 +20,9 @@ const checkCompanyExists = async (req: Request, res: Response, next: NextFunctio
         console.error('Error checking company existence:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
+    next();
 };
 
 
-export default checkCompanyExists;
 
 
